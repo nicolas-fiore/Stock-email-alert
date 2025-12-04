@@ -1,0 +1,10 @@
+.venv
+.env
+data
+brokerage.csv
+roth_read.csv
+final.txt
+test.html
+history
+__pycache__/
+*.pyc

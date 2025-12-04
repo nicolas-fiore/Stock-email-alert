@@ -5,6 +5,9 @@ from email_alert import alert
 from csv_handler import csv_formator
 import sys, schedule, time
 
+def daily():
+        write_file()
+        alert()
 
 def csv_reader(): 
     tmp_list = []
@@ -60,7 +63,7 @@ def write_file():
         file.write("------------------------------------------\n")
         for i in portfolio_values(): 
             file.write(f"{i}\n")
-    
+
     with open("final.txt") as orginal: 
         content = orginal.read()
         with open(f"./history/{date.today()}.txt", "w") as copy: 
@@ -68,12 +71,15 @@ def write_file():
 
 
 def main(): 
-    schedule.every().day.at("15:59:00").do(write_file)
-    schedule.every().day.at("15:59:00").do(alert)
+    schedule.every().monday.at("15:59:00").do(daily)
+    schedule.every().tuesday.at("15:59:00").do(daily)
+    schedule.every().wednesday.at("15:59:00").do(daily)
+    schedule.every().thursday.at("15:59:00").do(daily)
+    schedule.every().friday.at("15:59:00").do(daily)
 
     while True:
         schedule.run_pending()
-
+        time.sleep(1)
 
 
 

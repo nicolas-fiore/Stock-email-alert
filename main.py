@@ -1,9 +1,9 @@
 import yfinance as yf
 import pandas as pd
+import sys, schedule, time
 from datetime import date
 from email_alert import alert
 from csv_handler import csv_formator
-import sys, schedule, time
 
 def daily():
         write_file()

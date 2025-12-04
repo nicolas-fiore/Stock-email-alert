@@ -42,6 +42,9 @@ def send_email(message):
 if __name__ == "__main__": 
     alert()
 
+
+
+
 #! EXAMPLE
 # text = """\
 # Testing to see if this works {time}

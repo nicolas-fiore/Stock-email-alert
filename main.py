@@ -1,20 +1,16 @@
 import yfinance as yf
 import pandas as pd
-import sys, schedule, time
+import sys, schedule, time, os
 from datetime import date
 from email_alert import alert
 from csv_handler import csv_formator
 
-def daily():
-        write_file()
-        alert()
 
+    
 def csv_reader(): 
     tmp_list = []
-    try:
-        port = pd.read_csv("./data/portfolio.csv").T
-    except FileNotFoundError: 
-        sys.exit("File was not found or does not exist")
+    try: port = pd.read_csv("./data/portfolio.csv").T
+    except FileNotFoundError: sys.exit("File was not found or does not exist")
 
     for i in range(len(port.columns)): 
         tmp_list.append(port[port.columns[i]].to_list()) 
@@ -66,21 +62,22 @@ def write_file():
 
     with open("final.txt") as orginal: 
         content = orginal.read()
-        with open(f"./history/{date.today()}.txt", "w") as copy: 
-            copy.write(content)
+        try:
+            with open(f"./history/{date.today()}.txt", "w") as copy: 
+                copy.write(content)
+        except FileNotFoundError:
+            print("History folder not found, creating one")
+            os.mkdir("./history")
+
+            with open(f"./history/{date.today()}.txt", "w") as copy: 
+                copy.write(content)
+                  
+            
 
 
 def main(): 
-    schedule.every().monday.at("15:59:00").do(daily)
-    schedule.every().tuesday.at("15:59:00").do(daily)
-    schedule.every().wednesday.at("15:59:00").do(daily)
-    schedule.every().thursday.at("15:59:00").do(daily)
-    schedule.every().friday.at("15:59:00").do(daily)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
+    write_file()
+    alert()
 
 
 if __name__ == "__main__": 

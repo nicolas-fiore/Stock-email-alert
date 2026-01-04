@@ -1,10 +1,12 @@
 .venv
 .env
-data
+data/*
+!data/.gitkeep
 brokerage.csv
-roth_read.csv
+roth.csv
 final.txt
 test.html
-history
+history/*
+!history/.gitkeep
 __pycache__/
 *.pyc

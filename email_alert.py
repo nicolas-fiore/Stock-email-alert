@@ -36,7 +36,7 @@ def send_email(message):
         server.starttls()
         server.login(email, password)
         server.sendmail(email, email, message.as_string())
-
+        print("EMAIL SENT")
 
 
 if __name__ == "__main__": 
